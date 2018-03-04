@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
+import classNames from 'classnames';
 import avatar from '../images/avatar.png';
 export default class Messenger extends Component{
     constructor(props){
         super(props);
         this.state={
             height:window.innerHeight,
+            messages: [],
         }
         this._onResize = this._onResize.bind(this); 
+        this.addTestMessages = this.addTestMessages.bind(this);
     }
 
     _onResize(){
@@ -15,13 +18,32 @@ export default class Messenger extends Component{
         });
     }
     componentDidMount(){
-        window.addEventListener('resize',this._onResize)
+        window.addEventListener('resize',this._onResize);
+        this.addTestMessages();
+    }
+    addTestMessages(){
+        let {messages} = this.state;
+        for(let i=0;i<100;i++)
+        {
+            let isMe = false;
+            if(i%3===0){
+                isMe = true
+            }
+            const newMsg={
+                author: `Author ${i}`,
+                body: `The body of message ${i}`,
+                avatar: avatar,
+                me: isMe,
+            }
+            messages.push(newMsg);
+        }
+        this.setState({messages: messages});
     }
     componentWillUnmount(){
         window.removeEventListener('resize',this._onResize)
     }
     render(){
-        const {height} = this.state;
+        const {height,messages} = this.state;
         const style={
             height:height,
         }
@@ -42,39 +64,85 @@ export default class Messenger extends Component{
             </div>
         </div>
         <div className="main">
-        <div className="sidebar-left">Left sidebar</div>
-        <div className="content">
-            <div className="messages">
-                <div className="message">
-                    <div className="message-user-image">
+        <div className="sidebar-left">
+            <div className="channels">
+
+                <div className="channel">
+                    <div className="user-image">
                         <img src={avatar} alt="" />
                     </div>
-                    <div className="message-body">
-                        <div className="message-author">Tom says:</div>
-                        <div className="message-text">
-                            <p>
-                                Hello there...
-                            </p>
-                        </div>
+                    <div className="channel-info">
+                        <h2>Rahul, Bhai</h2>
+                        <p>Hello there...</p>
                     </div>
                 </div>
 
-                <div className="message me">
-                    <div className="message-user-image">
+                <div className="channel">
+                    <div className="user-image">
                         <img src={avatar} alt="" />
                     </div>
-                    <div className="message-body">
-                        <div className="message-author">Tom says:</div>
-                        <div className="message-text">
-                            <p>
-                                Hello there..dnmn   .
-                            </p>
-                        </div>
+                    <div className="channel-info">
+                        <h2>Rahul, Bhai</h2>
+                        <p>Hello there...</p>
                     </div>
+                </div>
+
+            </div>
+        </div>
+        <div className="content">
+            <div className="messages">
+                {messages.map((message,index)=>{
+                    return (
+                        <div key={index} className={classNames('message',{'me':message.me})}>
+                            <div className="message-user-image">
+                                <img src={message.avatar} alt="" />
+                            </div>
+                            <div className="message-body">
+                                <div className="message-author">{message.me? 'You ' :message.author} says:</div>
+                                <div className="message-text">
+                                    <p>
+                                        {message.body}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+
+            </div>
+            <div className="messenger-input">
+                <div className="text-input">
+                    <textarea placeholder="Write your message..." />
+                </div>
+                <div className="actions">
+                <button className="send">Send</button>
                 </div>
             </div>
         </div>
-        <div className="sidebar-right">Right sidebar</div>
+        <div className="sidebar-right">
+                <h2 className="title">Members</h2>
+                <div className="members">
+                    <div className="member">
+                        <div className="user-image">
+                            <img src={avatar} alt="" />
+                        </div>
+                        <div className="member-info">
+                            <h2>Rahul Kushwaha</h2>
+                            <p>Joined: 3 days ago.</p>
+                        </div>
+                    </div>
+
+                    <div className="member">
+                        <div className="user-image">
+                            <img src={avatar} alt="" />
+                        </div>
+                        <div className="member-info">
+                            <h2>Rahul Kushwaha</h2>
+                            <p>Joined: 3 days ago.</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
         </div>
         </div>
         )
