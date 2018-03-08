@@ -1,4 +1,43 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:400,600";
+@font-face {
+  font-family: "untitled-font-1";
+  src: url("./fonts/untitled-font-1.eot");
+  src: url("./fonts/untitled-font-1.eot?#iefix") format("embedded-opentype"), url("./fonts/untitled-font-1.woff") format("woff"), url("./fonts/untitled-font-1.ttf") format("truetype"), url("./fonts/untitled-font-1.svg#untitled-font-1") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+[data-icon]:before {
+  font-family: "untitled-font-1" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "untitled-font-1" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-edit-modify-streamline:before {
+  content: "\61"; }
+
+.icon-settings-streamline-1:before {
+  content: "\62"; }
+
+.icon-paperplane:before {
+  content: "\63"; }
+
 body, html {
   margin: 0;
   padding: 0;
@@ -23,10 +62,28 @@ body {
     flex-direction: row;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
     .app-messenger .header .left {
-      width: 200px; }
-      .app-messenger .header .left .actions {
+      width: 200px;
+      position: relative; }
+      .app-messenger .header .left .left-action {
+        position: absolute;
+        left: 8px;
+        top: 0; }
+      .app-messenger .header .left .right-action {
+        position: absolute;
+        right: 8px;
+        top: 0; }
+      .app-messenger .header .left h2 {
         line-height: 50px;
-        padding: 0 10px; }
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+        text-align: center; }
+      .app-messenger .header .left button {
+        background: none;
+        line-height: 50px;
+        border: 0 none;
+        font-size: 20px;
+        cursor: pointer; }
     .app-messenger .header .content {
       flex-grow: 1; }
       .app-messenger .header .content h2 {
@@ -103,8 +160,7 @@ body {
     .messages .message .message-body {
       padding-left: 10px; }
       .messages .message .message-body .message-text {
-        background: #2c3e50;
-        color: #ffffff;
+        background: rgba(0, 0, 0, 0.05);
         padding: 10px;
         border-radius: 10px; }
     .messages .message.me {
@@ -113,27 +169,34 @@ body {
         background: #2ecc71;
         color: #ffffff; }
 
-.channels .channel {
-  cursor: pointer;
-  display: flex;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 8px 0; }
-  .channels .channel .user-image {
-    width: 30px; }
-    .channels .channel .user-image img {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%; }
-  .channels .channel .channel-info {
-    flex-grow: 1;
-    padding-left: 8px; }
-    .channels .channel .channel-info h2 {
-      font-size: 14px;
-      font-weight: 600; }
-    .channels .channel .channel-info p {
-      font-size: 12px; }
-  .channels .channel.active {
-    background: rgba(0, 0, 0, 0.05); }
+.channels {
+  overflow-y: auto;
+  height: 100%; }
+  .channels .channel {
+    cursor: pointer;
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 8px; }
+    .channels .channel .user-image {
+      width: 30px; }
+      .channels .channel .user-image img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%; }
+    .channels .channel .channel-info {
+      flex-grow: 1;
+      padding-left: 8px;
+      padding-right: 8px;
+      overflow: hidden; }
+      .channels .channel .channel-info h2 {
+        font-size: 13px;
+        font-weight: 400;
+        white-space: nowrap; }
+      .channels .channel .channel-info p {
+        font-size: 12px;
+        white-space: nowrap; }
+    .channels .channel.active {
+      background: rgba(0, 0, 0, 0.05); }
 
 .members .member {
   display: flex;
@@ -157,5 +220,45 @@ h2.title {
   font-size: 16px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8); }
+
+.toolbar {
+  height: 50px;
+  display: flex;
+  flex-direction: row; }
+  .toolbar label {
+    line-height: 50px; }
+  .toolbar input {
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    border: 0 none; }
+  .toolbar .search-user {
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 0 none; }
+    .toolbar .search-user .user-list {
+      display: flex;
+      flex-direction: column; }
+      .toolbar .search-user .user-list .user {
+        padding: 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: row;
+        cursor: pointer; }
+        .toolbar .search-user .user-list .user img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-top: 10px; }
+        .toolbar .search-user .user-list .user h2 {
+          font-size: 14px;
+          padding-left: 8px;
+          flex-grow: 1; }
+        .toolbar .search-user .user-list .user:last-child {
+          border-bottom: 0 none; }
+        .toolbar .search-user .user-list .user:hover {
+          background: rgba(0, 0, 0, 0.02); }
 
 /*# sourceMappingURL=app.css.map */
